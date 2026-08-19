@@ -25,7 +25,21 @@ I tre host partecipano allo stesso cluster Proxmox VE. Corosync gestisce members
 
 ## Livello storage
 
-TrueNAS fornisce storage raggiungibile da più nodi. Quando il disco di una VM è su storage condiviso, la VM può essere spostata tra host senza dover ricopiare ogni volta l'intero disco virtuale.
+TrueNAS fornisce storage raggiungibile da più nodi Proxmox.
+
+La configurazione attuale comprende:
+
+- **3 dischi in un vdev ZFS RAIDZ1**;
+- **1 disco aggiuntivo configurato come spare**;
+- un **dataset dedicato a Proxmox**;
+- condivisione del dataset tramite **NFS**;
+- storage NFS aggiunto a Proxmox come **storage condiviso** del cluster.
+
+Quando il disco di una VM è sullo storage condiviso, la VM può essere spostata tra host senza dover ricopiare ogni volta l'intero disco virtuale.
+
+RAIDZ1 utilizza parità singola sul vdev a tre dischi. Il disco spare è capacità di sostituzione disponibile in caso di guasto: non rappresenta una seconda parità e non rende la configurazione equivalente a RAIDZ2.
+
+Approfondimento: [Storage condiviso con TrueNAS](storage-condiviso.md).
 
 ## Livello servizi
 
@@ -68,6 +82,20 @@ flowchart LR
     AD --> GPO
     CLIENT -->|Domain Join| AD
 ```
+
+## Scenari già documentati
+
+- [x] Cluster Proxmox a tre nodi
+- [x] Storage NFS condiviso
+- [x] Dataset TrueNAS dedicato a Proxmox
+- [x] Layout ZFS RAIDZ1 con disco spare documentato
+- [x] Migrazione e live migration
+- [x] Failover HA
+- [x] Pi-hole, WireGuard e Zabbix
+- [x] Pratica AWS EC2 e Security Groups
+- [ ] Test controllato di sostituzione disco ZFS
+- [ ] Dominio Active Directory
+- [ ] Segmentazione di rete più avanzata
 
 ## Sicurezza della documentazione
 
