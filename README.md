@@ -21,6 +21,7 @@ Questo repository documenta il mio **homelab personale** usato per studiare e fa
 
 - Comprendere cluster, quorum e Corosync
 - Configurare storage condiviso con TrueNAS/NFS
+- Studiare ZFS, RAIDZ1, dataset e disco spare
 - Testare migrazione VM e live migration
 - Verificare il comportamento HA durante il guasto di un nodo
 - Amministrare Linux e servizi infrastrutturali
@@ -40,6 +41,22 @@ Questo repository documenta il mio **homelab personale** usato per studiare e fa
 | TrueNAS | Storage NFS condiviso |
 
 **Per sicurezza non pubblico IP reali, hostname reali, username, password, chiavi, token, cookie, endpoint pubblici o altri identificativi operativi.**
+
+## Configurazione storage TrueNAS
+
+La parte storage è un elemento importante del laboratorio. La configurazione che utilizzo comprende:
+
+- **3 dischi in un vdev ZFS RAIDZ1**;
+- **1 disco aggiuntivo configurato come spare**;
+- un **dataset dedicato allo storage Proxmox**;
+- esportazione del dataset tramite **NFS**;
+- storage NFS aggiunto a Proxmox come **storage condiviso** disponibile ai nodi del cluster.
+
+RAIDZ1 utilizza parità singola sul vdev a tre dischi. Il disco spare è un disco di sostituzione disponibile in caso di guasto, ma **non rappresenta una seconda parità** e quindi non rende la configurazione equivalente a RAIDZ2.
+
+Questa configurazione mi permette di fare pratica con ZFS, ridondanza, dataset, NFS, storage per virtualizzazione, migrazione e impatto dello storage sull'High Availability.
+
+Approfondimento: **[Storage condiviso con TrueNAS](docs/storage-condiviso.md)**
 
 ## VM, container e servizi
 
@@ -77,6 +94,8 @@ Approfondimento: **[AWS EC2 e Security Groups](docs/aws-ec2.md)**
 - [x] Cluster Proxmox VE a 3 nodi
 - [x] Quorum verificato
 - [x] Storage NFS condiviso attivo
+- [x] Dataset TrueNAS dedicato a Proxmox
+- [x] Configurazione ZFS RAIDZ1 con disco spare documentata
 - [x] Migrazione manuale VM
 - [x] Live migration
 - [x] Risorsa HA configurata
@@ -88,6 +107,7 @@ Approfondimento: **[AWS EC2 e Security Groups](docs/aws-ec2.md)**
 - [x] WireGuard per accesso remoto
 - [x] Zabbix come laboratorio di monitoraggio
 - [x] Pratica AWS EC2 e Security Groups
+- [ ] Test controllato di sostituzione/resilver ZFS
 - [ ] Active Directory Domain Services
 - [ ] Segmentazione di rete più avanzata
 - [ ] Test backup e ripristino
@@ -125,7 +145,7 @@ Roadmap:
 | [Architettura](docs/architettura.md) | Topologia e componenti del laboratorio |
 | [VM e servizi](docs/workload.md) | Inventario logico e ruolo dei servizi |
 | [Cluster](docs/cluster.md) | Cluster, Corosync e quorum |
-| [Storage condiviso](docs/storage-condiviso.md) | TrueNAS/NFS e migrazione |
+| [Storage condiviso](docs/storage-condiviso.md) | RAIDZ1 + spare, dataset TrueNAS, NFS, migrazione e HA |
 | [Alta Affidabilità](docs/alta-affidabilita.md) | Test di failover e comportamento HA |
 | [Troubleshooting](docs/troubleshooting.md) | Problemi osservati e lezioni apprese |
 | [Validazione](docs/validazione.md) | Evidenze tecniche sanificate |
@@ -138,7 +158,8 @@ Roadmap:
 - Linux Debian/Ubuntu
 - systemd, journalctl e SSH
 - Cluster, Corosync e quorum
-- Storage NFS condiviso
+- ZFS RAIDZ1 e concetto di disco spare
+- Dataset TrueNAS e storage NFS condiviso
 - Migrazione VM e live migration
 - High Availability e failover
 - DNS e Pi-hole
