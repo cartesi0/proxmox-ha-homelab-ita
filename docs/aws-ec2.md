@@ -18,7 +18,9 @@ Non presento questa esperienza come competenza senior: la considero parte del mi
 
 ## Security Groups
 
-I Security Groups sono usati per definire quali flussi di rete sono consentiti verso e dalle istanze. Nel laboratorio pubblico non vengono riportati IP reali, regole associate a endpoint reali o altri dati dell'account AWS.
+I Security Groups funzionano come un firewall virtuale associato alle risorse AWS e permettono di definire il traffico consentito in ingresso e in uscita. Sono **stateful**: il traffico di risposta relativo a una connessione consentita viene gestito automaticamente, senza richiedere una regola separata per il traffico di ritorno.
+
+Nel repository pubblico non vengono riportati IP reali, regole associate a endpoint reali o altri dati dell'account AWS.
 
 Esempio concettuale:
 
@@ -62,5 +64,5 @@ Non vengono pubblicati:
 - token temporanei;
 - IP pubblici delle istanze;
 - endpoint reali;
-- chiavi SSH;
+- chiavi SSH private o pubbliche;
 - credenziali o file di configurazione dell'account.
