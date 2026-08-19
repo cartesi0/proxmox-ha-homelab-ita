@@ -22,8 +22,8 @@ La validazione reale del cluster ha mostrato:
 - 3 voti totali
 - quorum a 2 voti
 - stato `Quorate: Yes`
-- transport `knet`
-- secure auth attiva
+- trasporto `knet`
+- autenticazione sicura attiva
 
 Comandi principali:
 
@@ -43,7 +43,7 @@ systemctl status pve-ha-crm
 
 ## Storage condiviso
 
-TrueNAS fornisce NFS condiviso al cluster. La verifica viene eseguita con:
+TrueNAS fornisce storage NFS condiviso al cluster. La verifica viene eseguita con:
 
 ```bash
 pvesm status
@@ -51,7 +51,7 @@ pvesm status
 
 ## Test di migrazione
 
-Sono stati effettuati test di migrazione manuale e live migration. Quando il disco VM era già sullo storage condiviso, la migrazione è risultata molto più rapida perché non era necessario ricopiare l'intero disco tra i nodi.
+Sono stati effettuati test di migrazione manuale e live migration. Quando il disco della VM era già sullo storage condiviso, la migrazione è risultata molto più rapida perché non era necessario ricopiare l'intero disco tra i nodi.
 
 ## Test HA
 
@@ -74,7 +74,7 @@ Una VM è stata registrata come risorsa HA. Il nodo fisico che la ospitava è st
 - [x] Live migration
 - [x] Risorsa HA
 - [x] Guasto fisico simulato
-- [x] Restart automatico della VM
+- [x] Riavvio automatico della VM
 - [x] Rientro del nodo nel cluster
 
 Le evidenze tecniche sanificate sono in [Validazione](validazione.md).
